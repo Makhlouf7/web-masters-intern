@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -12,11 +13,15 @@ const userSchema = new mongoose.Schema({
     trim: true,
     required: [true, "User must have a name"],
   },
+  image: {
+    type: String,
+    default: "/uploads/default.png",
+  },
   roles: {
     type: String,
     trim: true,
     enum: {
-      values: ["admin", "customer"],
+      values: ["master", "admin", "customer"],
       message: "invalid role",
     },
     required: true,
@@ -24,13 +29,15 @@ const userSchema = new mongoose.Schema({
   passwordHash: {
     type: String,
     select: false,
-    required: true,
-  },
-  isActive: {
-    type: Boolean,
-    default: true,
+    required: function () {
+      return this.roles === "master" || this.roles === "admin";
+    },
   },
 });
+
+userSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.passwordHash);
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

@@ -28,5 +28,12 @@ const customerSchema = new mongoose.Schema({
   },
 });
 
+customerSchema.pre(/^find/, function () {
+  this.populate({
+    path: "user",
+    select: "email name image",
+  });
+});
+
 const Customer = mongoose.model("Customer", customerSchema);
 module.exports = Customer;

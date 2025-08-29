@@ -73,7 +73,7 @@ const deleteDeal = catchAsync(async (req, res, next) => {
 
   const { images } = deletedDeal;
   await deleteImages(images);
-  res.status(204).json({ status: "success", data: null });
+  res.status(204).end();
 });
 
 module.exports = { getAll, getDealById, createDeal, updateDeal, deleteDeal };

@@ -17,10 +17,4 @@ router
   .patch(upload.array("images"), updateDeal)
   .delete(deleteDeal);
 
-// router.route("*").all((req, res, next) => {
-//   res.status(404).json({
-//     message: "Not found",
-//   });
-// });
-
 module.exports = router;
