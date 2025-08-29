@@ -25,10 +25,6 @@ class APIFeatures {
     if (this.queryObj.sort) {
       let sortBy = this.queryObj.sort.split(",").join(" ");
       this.query = this.query.sort(sortBy);
-      // sort based on the price if a tie sort based on ratingsAverage
-      // sort("price ratingsAverage")
-    } else {
-      this.query = this.query.sort("-createdAt");
     }
     // Allow chaining methods
     return this;
@@ -38,8 +34,6 @@ class APIFeatures {
     if (this.queryObj.fields) {
       const fields = this.queryObj.fields.split(",").join(" ");
       this.query = this.query.select(fields);
-      // Give the wanted fields separated by spaces
-      // query = query.select('name duration price');
     } else {
       this.query = this.query.select("-__v");
     }
