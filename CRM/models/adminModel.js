@@ -44,5 +44,12 @@ const adminSchema = new mongoose.Schema({
   activities: [activitySchema],
 });
 
+adminSchema.pre(/^find/, function () {
+  this.populate({
+    path: "user",
+    select: "name email image",
+  });
+});
+
 const Admin = mongoose.model("Admin", adminSchema);
 module.exports = Admin;
