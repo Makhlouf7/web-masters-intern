@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "/uploads/default.png",
   },
-  roles: {
+  role: {
     type: String,
     trim: true,
     enum: {
@@ -30,12 +30,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     select: false,
     required: function () {
-      return this.roles === "master" || this.roles === "admin";
+      return this.role === "master" || this.role === "admin";
     },
   },
 });
 
 userSchema.methods.comparePassword = function (candidatePassword) {
+  console.log(candidatePassword, { passwordHash: this.passwordHash });
   return bcrypt.compare(candidatePassword, this.passwordHash);
 };
 

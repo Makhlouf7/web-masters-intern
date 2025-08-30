@@ -39,7 +39,7 @@ const getCustomerById = catchAsync(async (req, res, next) => {
 
 const createCustomer = catchAsync(async (req, res, next) => {
   const { email, name } = req.body;
-  const createdUser = await User.create({ email, name, roles: "customer" });
+  const createdUser = await User.create({ email, name, role: "customer" });
   const createdCustomer = await Customer.create({
     ...req.body,
     user: createdUser._id,

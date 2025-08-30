@@ -1,5 +1,5 @@
 const express = require("express");
-const { createUser, updateUser } = require("../controllers/userController");
+const { protect, restrictTo } = require("../controllers/authController");
 const {
   createCustomer,
   updateCustomer,
@@ -9,6 +9,8 @@ const {
 } = require("../controllers/customerController");
 
 const router = express.Router();
+
+router.use(protect, restrictTo("master", "admin"));
 
 router.route("/").get(getAllCustomers).post(createCustomer);
 
