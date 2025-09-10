@@ -1,5 +1,5 @@
 {
-  "name": "CRM",
+  "name": "Bazooka",
   "version": "1.0.0",
   "main": "app.js",
   "type": "commonjs",
@@ -19,7 +19,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.0",
     "multer": "^2.0.2",
-    "tinyurl": "^1.1.7",
     "validator": "^13.15.15"
   },
   "devDependencies": {
