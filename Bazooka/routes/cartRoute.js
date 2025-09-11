@@ -1,16 +1,17 @@
 const express = require("express");
-const { protect } = require("../controllers/authController");
+const { isUserLoggedIn } = require("../controllers/authController");
 const {
+  initializeCart,
+  mergeSessionCart,
   addItemToCart,
   removeItemFromCart,
-  updateCartItem,
   getCart,
 } = require("../controllers/cartController");
 
 const router = express.Router();
 
 // User is logged in functions
-router.use(protect);
+router.use(initializeCart, isUserLoggedIn, mergeSessionCart);
 router.route("/").get(getCart).post(addItemToCart);
 router.delete("/:id", removeItemFromCart);
 

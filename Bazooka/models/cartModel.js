@@ -13,5 +13,13 @@ const cartSchema = new mongoose.Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+productsSchema.pre("findOne", async function (next) {
+  this.populate({
+    path: "products.productId",
+    select: "price",
+  });
+  next();
+});
+
 const Cart = mongoose.model("Cart", cartSchema);
 module.exports = Cart;

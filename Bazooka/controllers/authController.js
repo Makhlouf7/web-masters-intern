@@ -60,6 +60,24 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.isUserLoggedIn = catchAsync(async (req, res, next) => {
+  if (
+    !req?.headers?.authorization ||
+    !req.headers.authorization.startsWith("Bearer")
+  ) {
+    return next();
+  }
+
+  const token = req.headers.authorization.split(" ")[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  const user = await User.findById(decoded.userId);
+  if (!user) return next(new AppError("invalid token", 401));
+
+  req.user = user;
+  next();
+});
+
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req?.user?.role))
