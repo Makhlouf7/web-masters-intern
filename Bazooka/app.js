@@ -3,6 +3,7 @@ const userRouter = require("./routes/userRoute");
 const categoryRouter = require("./routes/categoryRoute");
 const productRouter = require("./routes/productRoute");
 const cartRoute = require("./routes/cartRoute");
+const invoiceRoute = require("./routes/invoiceRoute");
 const session = require("express-session");
 const globalErrorHandler = require("./controllers/errorController");
 
@@ -22,6 +23,7 @@ app.use("/users", userRouter);
 app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
 app.use("/cart-items", cartRoute);
+app.use("/invoices", invoiceRoute);
 
 app.use(globalErrorHandler);
 module.exports = app;

@@ -7,6 +7,7 @@ const priceListSchema = new mongoose.Schema({
   },
   size: {
     type: String,
+    unique: true,
     default: "one-size",
     trim: true,
   },

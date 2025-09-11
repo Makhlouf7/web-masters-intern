@@ -22,7 +22,7 @@ exports.login = catchAsync(async (req, res, next) => {
   const { phone, password } = req.body;
 
   const user = await User.findOne({ phone }).select("+password");
-  if (!(await user.comparePassword(password))) {
+  if (!user || !(await user.comparePassword(password))) {
     return next(new AppError("Invalid email or password", 401));
   }
 
